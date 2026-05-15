@@ -1,58 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>403 - Forbidden</title>
+<title>403 - Access Denied</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-        text-align: center;
-        padding: 50px;
-    }
+body {
+    background: linear-gradient(135deg, #eef2f3, #8e9eab);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
 
-    h1 {
-        font-size: 3em;
-        color: #e74c3c;
-    }
+.error-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    max-width: 450px;
+    width: 100%;
+}
 
-    p {
-        font-size: 1.5em;
-        color: #555;
-    }
+.error-code {
+    font-size: 80px;
+    font-weight: bold;
+    color: #e74c3c;
+}
 
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
+.error-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
 
-    .button {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        background-color: #3498db;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-    }
+.error-text {
+    color: #666;
+    margin-bottom: 20px;
+}
 
-    .button:hover {
-        background-color: #2980b9;
-    }
+.btn-custom {
+    background: #4e73df;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    background: #2e59d9;
+    color: white;
+    text-decoration: none;
+}
 </style>
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>403 - Forbidden</h1>
-        <p>Sorry, you do not have permission to access this page.</p>
+
+<div class="error-card">
+
+    <div class="error-code">403</div>
+
+    <div class="error-title">Access Denied</div>
+
+    <div class="error-text">
+        You don’t have permission to view this page.<br>
+        Please contact the administrator if you believe this is a mistake.
     </div>
+
+    <a href="/" class="btn-custom">Go to Home</a>
+
+</div>
+
 </body>
 </html>

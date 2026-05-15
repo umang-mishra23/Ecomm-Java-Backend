@@ -1,131 +1,283 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin - Products</title>
+
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<title>Document</title>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fc;
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:linear-gradient(90deg,#141e30,#243b55);
+    padding:15px 30px;
+}
+
+.navbar-brand{
+    color:white !important;
+    font-weight:700;
+}
+
+.nav-link{
+    color:white !important;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:30px 0;
+}
+
+.header h2{
+    font-weight:700;
+    color:#243b55;
+}
+
+/* ADD BUTTON */
+
+.btn-add{
+    background:linear-gradient(90deg,#00c6ff,#0072ff);
+    border:none;
+    color:white;
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+/* CARD TABLE */
+
+.table-box{
+    background:white;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+
+.table thead{
+    background:#243b55;
+    color:white;
+}
+
+.table tbody tr:hover{
+    background:#f6f9ff;
+}
+
+/* PRODUCT IMAGE */
+
+.product-img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #eee;
+}
+
+/* BUTTONS */
+
+.btn-delete{
+    background:#ef233c;
+    border:none;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+}
+
+.btn-update{
+    background:#ffb703;
+    border:none;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+}
+
+/* PRICE */
+
+.price{
+    font-weight:600;
+    color:#2a9d8f;
+}
+
+</style>
+
 </head>
-<body class="bg-light">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				th:src="@{/images/logo.png}" src="../static/images/logo.png"
-				width="auto" height="40" class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link" href="Dashboard">Home
-							Page</a></li>
-					<li class="nav-item active"><a class="nav-link" href="logout">Logout</a>
-					</li>
+<body>
 
-				</ul>
+<!-- NAVBAR -->
 
-			</div>
-		</div>
-	</nav><br>
-	<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark">
 
-		<a style="margin: 20px 0" class="btn btn-primary"
-			href="/admin/products/add">Add Product</a><br>
-		<table class="table">
+    <a class="navbar-brand" href="#">Admin Panel</a>
 
-			<tr>
-				<th scope="col">Serial No.</th>
-				<th scope="col">Product Name</th>
-				<th scope="col">Category</th>
-				<th scope="col">Preview</th>
-				<th scope="col">Quantity</th>
-				<th scope="col">Price</th>
-				<th scope="col">Weight</th>
-				<th scope="col">Descrption</th>
-				<th scope="col">Delete</th>
-				<th scope="col">Update</th>
-			</tr>
-			<tbody>
+    <div class="ml-auto">
 
-				<c:forEach var="product" items="${products}">
-				<tr>
+        <a class="nav-link d-inline" href="/admin/">Home</a>
+        <a class="nav-link d-inline" href="/logout">Logout</a>
 
+    </div>
 
+</nav>
 
-					<td>
-						${product.id}
-					</td>
-					<td>
-						${product.name }
-					</td>
-					<td>
-						${product.category.name}
+<div class="container">
 
-					</td>
+<!-- HEADER -->
 
-					<td><img src="${product.image}"
-						height="100px" width="100px"></td>
-					<td>
-						${product.quantity }
-					</td>
-					<td>S
-						${product.price }
-					</td>
-					<td>
-						${product.weight }
-					</td>
-					<td>
-						${product.description }
-					</td>
+<div class="header">
 
-					<td>
-					<form action="products/delete" method="post">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-							<input type="hidden" name="id" value="${product.id}">
-							<input type="submit" value="Delete" class="btn btn-danger">
-					</form>
-					</td>
-					<td>
-					<form action="products/update/${product.id}" method="get">
-                        <input type="submit" value="Update" class="btn btn-warning">
-                    </form>
+    <h2>Product Management</h2>
 
-					</td>
+    <a href="/admin/products/add"
+       class="btn-add">
 
-				</tr>
-				</c:forEach>
+        <i class="fas fa-plus"></i> Add Product
 
-			</tbody>
-		</table>
+    </a>
 
-	</div>
+</div>
 
+<!-- TABLE -->
 
+<div class="table-box">
 
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Category</th>
+
+<th>Image</th>
+
+<th>Qty</th>
+
+<th>Price</th>
+
+<th>Weight</th>
+
+<th>Description</th>
+
+<th>Delete</th>
+
+<th>Update</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<c:forEach var="product" items="${products}">
+
+<tr>
+
+<td>${product.id}</td>
+
+<td><strong>${product.name}</strong></td>
+
+<td>${product.category.name}</td>
+
+<td>
+
+<img class="product-img"
+     src="${product.image}">
+
+</td>
+
+<td>${product.quantity}</td>
+
+<td class="price">₹ ${product.price}</td>
+
+<td>${product.weight}</td>
+
+<td>${product.description}</td>
+
+<td>
+
+<form action="products/delete" method="post">
+
+<input type="hidden"
+       name="${_csrf.parameterName}"
+       value="${_csrf.token}"/>
+
+<input type="hidden"
+       name="id"
+       value="${product.id}">
+
+<button class="btn-delete">
+    Delete
+</button>
+
+</form>
+
+</td>
+
+<td>
+
+<form action="products/update/${product.id}" method="get">
+
+<button class="btn-update">
+    Update
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+</c:forEach>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

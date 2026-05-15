@@ -3,112 +3,342 @@
 <%@page import="java.text.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-    <title>Document</title>
-    
-</head>
-<body>
-
-<section class="wrapper">
-        <div class="container-fostrap">
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img th:src="@{/images/logo.png}"  src="../static/images/logo.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-		
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <h4>Welcome ${ username } </h4>
-            <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/}" href="#">CART</a>
-                </li>
-                 <li class="nav-item active">
-                    <a class="nav-link" href="profileDisplay" >Profile</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" sec:authorize="isAuthenticated()" href="logout">Logout</a>
-                </li>
-               
-            </ul>
-
-        </div>
-    </div>
-</nav>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Umang Shop</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <style>
-    body {
-      padding: 20px;
-    }
-     .card-body {
-          height: 250px; /* Set a fixed height for the card body */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umang Shop</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        .card-img-top {
-          max-height: 100px; /* Limit the height of the product image */
-          object-fit: contain;
+        body{
+            font-family:'Poppins', sans-serif;
+            background:#f5f7fb;
+            color:#333;
         }
 
-  </style>
+        /* NAVBAR */
+
+        .navbar{
+            background: linear-gradient(90deg,#141e30,#243b55);
+            padding:15px 40px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand{
+            color:#fff !important;
+            font-size:28px;
+            font-weight:700;
+        }
+
+        .navbar-nav .nav-link{
+            color:#fff !important;
+            margin-left:15px;
+            font-weight:500;
+            transition:0.3s;
+        }
+
+        .navbar-nav .nav-link:hover{
+            color:#00d4ff !important;
+        }
+
+        .welcome-text{
+            color:white;
+            font-weight:500;
+            margin-right:20px;
+        }
+
+        /* HERO SECTION */
+
+        .hero{
+            background: linear-gradient(rgba(0,0,0,0.5),
+                        rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200');
+            background-size:cover;
+            background-position:center;
+            height:350px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            color:white;
+            margin-bottom:50px;
+        }
+
+        .hero h1{
+            font-size:55px;
+            font-weight:700;
+        }
+
+        .hero p{
+            font-size:20px;
+            margin-top:10px;
+        }
+
+        /* SECTION TITLE */
+
+        .section-title{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .section-title h2{
+            font-size:38px;
+            font-weight:700;
+            color:#243b55;
+        }
+
+        /* PRODUCT CARD */
+
+        .product-card{
+            border:none;
+            border-radius:18px;
+            overflow:hidden;
+            background:white;
+            transition:0.4s;
+            box-shadow:0 6px 18px rgba(0,0,0,0.08);
+            margin-bottom:30px;
+            height:100%;
+        }
+
+        .product-card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image{
+            height:240px;
+            object-fit:contain;
+            padding:20px;
+            background:#f8f9fa;
+        }
+
+        .card-body{
+            padding:20px;
+        }
+
+        .product-name{
+            font-size:22px;
+            font-weight:600;
+            margin-bottom:10px;
+            color:#222;
+        }
+
+        .category{
+            font-size:14px;
+            color:#777;
+            margin-bottom:10px;
+        }
+
+        .price{
+            font-size:24px;
+            color:#007bff;
+            font-weight:700;
+            margin-bottom:15px;
+        }
+
+        .description{
+            font-size:14px;
+            color:#666;
+            min-height:60px;
+        }
+
+        .btn-cart{
+            width:100%;
+            border:none;
+            border-radius:30px;
+            padding:12px;
+            background:linear-gradient(90deg,#007bff,#00c6ff);
+            color:white;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .btn-cart:hover{
+            background:linear-gradient(90deg,#0056b3,#0096c7);
+        }
+
+        /* FOOTER */
+
+        footer{
+            background:#141e30;
+            color:white;
+            text-align:center;
+            padding:25px;
+            margin-top:60px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:38px;
+            }
+
+            .hero p{
+                font-size:16px;
+            }
+        }
+
+    </style>
 </head>
-<body class="bg-light">
-  <header>
 
-  </header>
-  <main>
+<body>
 
-    <div class="container">
-      <h1>Welcome to Umang Shop</h1>
+<!-- NAVBAR -->
 
+<nav class="navbar navbar-expand-lg navbar-dark">
 
-      <div class="row">
-      <c:forEach var="product" items="${products}">
-        <div class="col-md-3">
-          <div class="card mb-4">
-            <img class="card-img-top" src="${product.image}" alt="Product 1">
-            <div class="card-body">
-             <b> <h4 class="card-title">${product.name}</h4></b>
-              <h5 class="card-text">Category: ${product.category.name}</h5>
-              <h5 class="card-text">Price: ${product.price}</h5>
-              <p class="card-text">Description: ${product.description}</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
-            </div>
-          </div>
-        </div> </c:forEach>
-      </div>
+    <a class="navbar-brand" href="#">
+        Umang Shop
+    </a>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <span class="welcome-text">
+                    Welcome ${username}
+                </span>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="profileDisplay">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+
+        </ul>
 
     </div>
-  </main>
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 umang Shop. All rights reserved
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div>
+
+        <h1>Welcome to Umang Shop</h1>
+
+        <p>Discover Amazing Products at Best Prices</p>
+
+    </div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<div class="container">
+
+    <div class="section-title">
+
+        <h2>Featured Products</h2>
+
+    </div>
+
+    <div class="row">
+
+        <c:forEach var="product" items="${products}">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="card product-card">
+
+                    <img class="product-image"
+                         src="${product.image}"
+                         alt="${product.name}">
+
+                    <div class="card-body">
+
+                        <h4 class="product-name">
+                            ${product.name}
+                        </h4>
+
+                        <div class="category">
+                            ${product.category.name}
+                        </div>
+
+                        <div class="price">
+                            Rs. ${product.price}
+                        </div>
+
+                        <p class="description">
+                            ${product.description}
+                        </p>
+
+                        <button class="btn btn-cart">
+                            <i class="fas fa-cart-plus"></i>
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </c:forEach>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 Umang Shop. All Rights Reserved.
+    </p>
+
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -1,83 +1,370 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible"
+          content="ie=edge">
+
     <title>Admin Login</title>
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
     <style>
-    
-    	body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
-        .login-container {
-        	max-width: 400px;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            background: white;
+
+        body{
+            font-family:'Poppins',sans-serif;
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#0f172a,#1e293b,#334155);
+            overflow:hidden;
+            position:relative;
         }
-        .login-container .jumbotron {
-            border-radius: 8px;
+
+        /* BACKGROUND CIRCLES */
+
+        body::before,
+        body::after{
+
+            content:'';
+            position:absolute;
+            border-radius:50%;
+            filter:blur(80px);
+            opacity:0.5;
+
         }
-        .input-group-text {
-            background-color: #007bff;
-            color: white;
-            border-radius: 0.25rem 0 0 0.25rem;
+
+        body::before{
+            width:300px;
+            height:300px;
+            background:#00c6ff;
+            top:-100px;
+            left:-100px;
         }
-        .input-group-prepend .input-group-text {
-            border-right: 0;
+
+        body::after{
+            width:350px;
+            height:350px;
+            background:#7f5af0;
+            bottom:-120px;
+            right:-120px;
         }
-        .form-control {
-            border-radius: 0 0.25rem 0.25rem 0;
+
+        /* LOGIN CARD */
+
+        .admin-login-card{
+
+            width:100%;
+            max-width:430px;
+            padding:45px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.10);
+            backdrop-filter:blur(14px);
+            box-shadow:0 8px 32px rgba(0,0,0,0.35);
+            border:1px solid rgba(255,255,255,0.15);
+            color:white;
+            z-index:10;
+
         }
+
+        .admin-logo{
+
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:0 auto 25px;
+            font-size:40px;
+            color:white;
+            box-shadow:0 6px 20px rgba(0,198,255,0.35);
+
+        }
+
+        .admin-login-card h2{
+
+            text-align:center;
+            margin-bottom:8px;
+            font-weight:700;
+
+        }
+
+        .subtitle{
+
+            text-align:center;
+            color:#d1d5db;
+            margin-bottom:35px;
+            font-size:15px;
+
+        }
+
+        /* FORM */
+
+        .form-group{
+
+            margin-bottom:22px;
+
+        }
+
+        .form-group label{
+
+            font-weight:500;
+            margin-bottom:8px;
+
+        }
+
+        .input-group{
+
+            border-radius:14px;
+            overflow:hidden;
+
+        }
+
+        .input-group-text{
+
+            background:#00c6ff;
+            border:none;
+            color:white;
+            width:55px;
+            justify-content:center;
+
+        }
+
+        .form-control{
+
+            height:55px;
+            border:none;
+            background:rgba(255,255,255,0.12);
+            color:white;
+            font-size:15px;
+
+        }
+
+        .form-control::placeholder{
+
+            color:#d1d5db;
+
+        }
+
+        .form-control:focus{
+
+            background:rgba(255,255,255,0.18);
+            color:white;
+            box-shadow:none;
+
+        }
+
+        /* BUTTON */
+
+        .btn-admin-login{
+
+            width:100%;
+            height:55px;
+            border:none;
+            border-radius:30px;
+            background:linear-gradient(90deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:18px;
+            font-weight:600;
+            transition:0.3s;
+
+        }
+
+        .btn-admin-login:hover{
+
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(0,198,255,0.4);
+
+        }
+
+        /* ERROR */
+
+        .error-msg{
+
+            margin-top:20px;
+            text-align:center;
+            color:#ff6b6b;
+            font-weight:600;
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:500px){
+
+            .admin-login-card{
+
+                margin:20px;
+                padding:35px 25px;
+
+            }
+
+        }
+
     </style>
+
 </head>
 
-<body class="bg-dark">
+<body>
 
-<div class="login-container p-4">
-    <div class="jumbotron border p-4">
-        <h2 class="text-center">Admin Login</h2>
-        <form action="/admin/loginvalidate" method="post">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <input type="text" name="username" id="username" placeholder="Admin username" required class="form-control form-control-lg">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    </div>
-                    <input type="password" class="form-control form-control-lg" placeholder="Admin Password" required name="password" id="password">
-                </div>
-            </div>
-            <input type="submit" value="Login" class="btn btn-primary btn-block mt-4">
-            <h3 class="text-center text-danger mt-3">${msg}</h3>
-        </form>
+<div class="admin-login-card">
+
+    <!-- ICON -->
+
+    <div class="admin-logo">
+
+        <i class="fas fa-user-shield"></i>
+
     </div>
+
+    <!-- TITLE -->
+
+    <h2>
+
+        Admin Panel
+
+    </h2>
+
+    <div class="subtitle">
+
+        Secure administrator login access
+
+    </div>
+
+    <!-- FORM -->
+
+    <form action="/admin/loginvalidate"
+          method="post">
+
+        <input type="hidden"
+               name="${_csrf.parameterName}"
+               value="${_csrf.token}"/>
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+            <label for="username">
+
+                Username
+
+            </label>
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+
+                    <span class="input-group-text">
+
+                        <i class="fas fa-user"></i>
+
+                    </span>
+
+                </div>
+
+                <input type="text"
+                       name="username"
+                       id="username"
+                       class="form-control"
+                       placeholder="Enter admin username"
+                       required>
+
+            </div>
+
+        </div>
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+
+                Password
+
+            </label>
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+
+                    <span class="input-group-text">
+
+                        <i class="fas fa-lock"></i>
+
+                    </span>
+
+                </div>
+
+                <input type="password"
+                       name="password"
+                       id="password"
+                       class="form-control"
+                       placeholder="Enter admin password"
+                       required>
+
+            </div>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button type="submit"
+                class="btn-admin-login">
+
+            <i class="fas fa-sign-in-alt"></i>
+
+            Login
+
+        </button>
+
+        <!-- ERROR -->
+
+        <div class="error-msg">
+
+            ${msg}
+
+        </div>
+
+    </form>
+
 </div>
 
+<!-- JS -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
